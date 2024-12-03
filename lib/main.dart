@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Team Allstar Login',
+      title: 'Group 5, CS4C - MCG41 Finals',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         scaffoldBackgroundColor: const Color(0xFF141414),
@@ -32,4 +32,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-

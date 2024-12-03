@@ -3,6 +3,7 @@ import 'package:group5_cs4c_mcg41_finals/screens/home.dart';
 import 'package:group5_cs4c_mcg41_finals/screens/pages/about.dart';
 import 'package:group5_cs4c_mcg41_finals/screens/pages/contact.dart';
 import 'package:group5_cs4c_mcg41_finals/screens/pages/projects.dart';
+import 'package:page_transition/page_transition.dart';
 
 class ServicesPage extends StatelessWidget {
   const ServicesPage({super.key});
@@ -12,7 +13,6 @@ class ServicesPage extends StatelessWidget {
     return SizedBox.expand(
         child: GestureDetector(
             onPanUpdate: (details) {
-              // Swiping in right direction.
               if (details.delta.dx > 0) {
                 Navigator.pop(context);
                 Navigator.push(context,
@@ -39,27 +39,18 @@ class ServicesPage extends StatelessWidget {
                       ),
                       onTap: () {
                         Navigator.pop(context);
-
                         Navigator.push(
                             context,
                             MaterialPageRoute(
                                 builder: (context) => HomePage()));
                       },
                     ),
-                    ListTile(
-                      title: const Text(
+                    const ListTile(
+                      title: Text(
                         'Services',
                         style: TextStyle(color: Colors.white),
                       ),
                       tileColor: const Color.fromARGB(255, 25, 28, 36),
-                      onTap: () {
-                        Navigator.pop(context);
-
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const ServicesPage()));
-                      },
                     ),
                     ListTile(
                       title: const Text(
@@ -68,11 +59,12 @@ class ServicesPage extends StatelessWidget {
                       ),
                       onTap: () {
                         Navigator.pop(context);
-
                         Navigator.push(
                             context,
-                            MaterialPageRoute(
-                                builder: (context) => const ProjectsPage()));
+                            PageTransition(
+                                type: PageTransitionType.rightToLeft,
+                                duration: const Duration(milliseconds: 150),
+                                child: const ProjectsPage()));
                       },
                     ),
                     ListTile(
@@ -82,11 +74,12 @@ class ServicesPage extends StatelessWidget {
                       ),
                       onTap: () {
                         Navigator.pop(context);
-
                         Navigator.push(
                             context,
-                            MaterialPageRoute(
-                                builder: (context) => const ContactPage()));
+                            PageTransition(
+                                type: PageTransitionType.rightToLeft,
+                                duration: const Duration(milliseconds: 150),
+                                child: const ContactPage()));
                       },
                     ),
                     ListTile(
@@ -96,11 +89,12 @@ class ServicesPage extends StatelessWidget {
                       ),
                       onTap: () {
                         Navigator.pop(context);
-
                         Navigator.push(
                             context,
-                            MaterialPageRoute(
-                                builder: (context) => const AboutPage()));
+                            PageTransition(
+                                type: PageTransitionType.rightToLeft,
+                                duration: const Duration(milliseconds: 150),
+                                child: const AboutPage()));
                       },
                     ),
                   ],

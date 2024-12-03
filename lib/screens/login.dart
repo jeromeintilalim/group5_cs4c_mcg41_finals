@@ -1,5 +1,6 @@
-import 'package:group5_cs4c_mcg41_finals/screens/register.dart';
 import 'package:flutter/material.dart';
+import 'package:group5_cs4c_mcg41_finals/screens/register.dart';
+import 'package:page_transition/page_transition.dart';
 
 import 'home.dart';
 
@@ -18,51 +19,30 @@ class _LoginPageState extends State<LoginPage> {
   final pwdController = TextEditingController();
 
   Future userLogin() async {
-    // String url = "https://pakainaso.000webhostapp.com/user_login.php";
-
     setState(() {
       _visible = true;
     });
 
-    var data = {
-      'username': userController.text,
-      'password': pwdController.text,
-    };
-
-    // var client = http.Client();
-
-    // var response = await client.post(Uri.parse(url), body: json.encode(data));
-
-    // if (response.statusCode == 200) {
-    if (userController.text == "test" && pwdController.text == "test") {
-      // var msg = json.decode(response.body);
-
-      // if (msg['loginStatus'] == true) {
+    if (userController.text == "user" && pwdController.text == "pass") {
       setState(() {
         _visible = false;
       });
 
       Navigator.push(
           context,
-          MaterialPageRoute(
-              builder: (context) => HomePage(uname: userController.text)));
+          PageTransition(
+              type: PageTransitionType.fade,
+              duration: const Duration(milliseconds: 250),
+              child: HomePage()));
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text('Log in successful.'),
           backgroundColor: Colors.green,
         ),
       );
-      // } else {
-      //   setState(() {
-      //     _visible = false;
-
-      //     showMessage(msg["message"]);
-      //   });
-      // }
     } else {
       setState(() {
         _visible = false;
-
         showMessage("Invalid username or password.");
       });
     }
@@ -73,10 +53,23 @@ class _LoginPageState extends State<LoginPage> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text(msg),
+          title: Text(
+            msg,
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 16.0,
+            ),
+          ),
+          backgroundColor: const Color.fromARGB(255, 25, 28, 36),
           actions: <Widget>[
             TextButton(
-              child: const Text("OK"),
+              child: const Text(
+                "OK",
+                style: TextStyle(
+                  color: Colors.grey,
+                  fontSize: 16.0,
+                ),
+              ),
               onPressed: () {
                 Navigator.of(context).pop();
               },
@@ -110,7 +103,7 @@ class _LoginPageState extends State<LoginPage> {
               height: 100.0,
             ),
             Icon(
-              Icons.gamepad,
+              Icons.code_off,
               color: Theme.of(context).primaryColor,
               size: 80.0,
             ),
@@ -118,7 +111,7 @@ class _LoginPageState extends State<LoginPage> {
               height: 10.0,
             ),
             const Text(
-              'Welcome to Team Allstar!',
+              'Final Project - MCG41',
               style: TextStyle(
                   color: Colors.white,
                   fontSize: 25.0,
@@ -252,7 +245,7 @@ class _LoginPageState extends State<LoginPage> {
                           if (_formKey.currentState!.validate()) {userLogin()}
                         },
                         style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all<Color>(
+                          backgroundColor: WidgetStateProperty.all<Color>(
                               Theme.of(context).primaryColor),
                         ),
                         child: const Padding(
@@ -271,12 +264,14 @@ class _LoginPageState extends State<LoginPage> {
                         onPressed: () => {
                           Navigator.push(
                               context,
-                              MaterialPageRoute(
-                                  builder: (context) => SignUpPage()))
+                              PageTransition(
+                                  type: PageTransitionType.leftToRight,
+                                  duration: const Duration(milliseconds: 300),
+                                  child: SignUpPage()))
                         },
                         style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStateProperty.all<Color>(Colors.grey),
+                          backgroundColor: WidgetStateProperty.all<Color>(
+                              const Color(0xff222831)),
                         ),
                         child: const Padding(
                           padding: EdgeInsets.all(16.0),

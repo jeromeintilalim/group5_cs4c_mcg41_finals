@@ -34,7 +34,6 @@ class Modal extends StatelessWidget {
                     height: 5.0,
                   ),
                 ]),
-                // onTap: () => Navigator.of(context).pop(),
               ),
               ListTile(
                 title: Column(children: [
@@ -63,15 +62,7 @@ class Modal extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    'Daniel Austria',
-                    style: TextStyle(
-                      color: Colors.grey,
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.normal,
-                    ),
-                  ),
-                  Text(
-                    'Mark Boral',
+                    'Mark Leniel Boral',
                     style: TextStyle(
                       color: Colors.grey,
                       fontSize: 16.0,
@@ -79,7 +70,6 @@ class Modal extends StatelessWidget {
                     ),
                   ),
                 ]),
-                // onTap: () => Navigator.of(context).pop(),
               ),
             ],
           ),

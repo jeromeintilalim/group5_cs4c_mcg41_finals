@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:page_transition/page_transition.dart';
 
 import 'login.dart';
 
@@ -21,75 +22,6 @@ class _SignUpPageState extends State<SignUpPage> {
   final locationController = TextEditingController();
   final userController = TextEditingController();
   final pwdController = TextEditingController();
-
-  Future userSignUp() async {
-    String url = "https://pakainaso.000webhostapp.com/user_signup.php";
-
-    final ifUsername = await http
-        .get(Uri.parse('https://pakainaso.000webhostapp.com/get_users.php'));
-
-    bool usernameExists = false;
-    if (ifUsername.body != "No data found") {
-      var decodedData = jsonDecode(ifUsername.body);
-
-      String desiredUsername = userController.text;
-
-      for (var user in decodedData) {
-        String uname = user['UNAME'] ?? '';
-
-        if (uname == desiredUsername) {
-          // The desired username exists in the list
-          usernameExists = true;
-          break; // Exit the loop once found
-        }
-      }
-      print("no data found: false");
-    } else {
-      print("no data found: true");
-    }
-
-    setState(() {
-      _visible = true;
-    });
-
-    var data = {
-      'name': nameController.text,
-      'email': emailController.text,
-      'location': locationController.text,
-      'password': pwdController.text,
-      'username': userController.text,
-    };
-
-    if (!usernameExists) {
-      var client = http.Client();
-
-      var response = await client.post(Uri.parse(url),
-          body: json.encode(data),
-          headers: <String, String>{
-            'Content-Type': 'application/json; charset=UTF-8',
-          }).timeout(const Duration(seconds: 30));
-
-      if (response.statusCode == 200) {
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => LoginPage()));
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Sign up successful. You may log in now.'),
-            backgroundColor: Colors.green,
-          ),
-        );
-      } else {
-        setState(() {
-          _visible = false;
-
-          showMessage("Error during connecting to Server.");
-        });
-      }
-    } else {
-      showMessage("Username is already taken.");
-      print("username does exist");
-    }
-  }
 
   void showMessage(String msg) {
     showDialog(
@@ -382,7 +314,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         primaryColor: const Color.fromRGBO(84, 87, 90, 0.5),
                         primaryColorDark: const Color.fromRGBO(84, 87, 90, 0.5),
                         hintColor: const Color.fromRGBO(
-                            84, 87, 90, 0.5), //placeholder color
+                            84, 87, 90, 0.5),
                       ),
                       child: TextFormField(
                         controller: pwdController,
@@ -438,10 +370,22 @@ class _SignUpPageState extends State<SignUpPage> {
                       padding: const EdgeInsets.all(8.0),
                       child: ElevatedButton(
                         onPressed: () => {
-                          if (_formKey.currentState!.validate()) {userSignUp()}
+                          if (_formKey.currentState!.validate())
+                            {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => LoginPage())),
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text('Registration Successful.'),
+                                  backgroundColor: Colors.green,
+                                ),
+                              )
+                            }
                         },
                         style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all<Color>(
+                          backgroundColor: WidgetStateProperty.all<Color>(
                               Theme.of(context).primaryColor),
                         ),
                         child: const Padding(
@@ -460,12 +404,14 @@ class _SignUpPageState extends State<SignUpPage> {
                         onPressed: () => {
                           Navigator.push(
                               context,
-                              MaterialPageRoute(
-                                  builder: (context) => LoginPage()))
+                              PageTransition(
+                                  type: PageTransitionType.leftToRight,
+                                  duration: const Duration(milliseconds: 300),
+                                  child: LoginPage()))
                         },
                         style: ButtonStyle(
                           backgroundColor:
-                              MaterialStateProperty.all<Color>(Colors.grey),
+                              WidgetStateProperty.all<Color>(Colors.grey),
                         ),
                         child: const Padding(
                           padding: EdgeInsets.all(16.0),

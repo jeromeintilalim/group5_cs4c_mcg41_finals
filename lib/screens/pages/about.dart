@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:group5_cs4c_mcg41_finals/screens/home.dart';
 import 'package:group5_cs4c_mcg41_finals/screens/pages/contact.dart';
 import 'package:group5_cs4c_mcg41_finals/screens/pages/projects.dart';
+import 'package:page_transition/page_transition.dart';
 
 import 'services.dart';
 
@@ -13,7 +14,6 @@ class AboutPage extends StatelessWidget {
     return SizedBox.expand(
         child: GestureDetector(
             onPanUpdate: (details) {
-              // Swiping in right direction.
               if (details.delta.dx > 0) {
                 Navigator.pop(context);
                 Navigator.push(context,
@@ -40,7 +40,6 @@ class AboutPage extends StatelessWidget {
                       ),
                       onTap: () {
                         Navigator.pop(context);
-
                         Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -54,11 +53,12 @@ class AboutPage extends StatelessWidget {
                       ),
                       onTap: () {
                         Navigator.pop(context);
-
                         Navigator.push(
                             context,
-                            MaterialPageRoute(
-                                builder: (context) => const ServicesPage()));
+                            PageTransition(
+                                type: PageTransitionType.rightToLeft,
+                                duration: const Duration(milliseconds: 150),
+                                child: const ServicesPage()));
                       },
                     ),
                     ListTile(
@@ -68,11 +68,12 @@ class AboutPage extends StatelessWidget {
                       ),
                       onTap: () {
                         Navigator.pop(context);
-
                         Navigator.push(
                             context,
-                            MaterialPageRoute(
-                                builder: (context) => const ProjectsPage()));
+                            PageTransition(
+                                type: PageTransitionType.rightToLeft,
+                                duration: const Duration(milliseconds: 150),
+                                child: const ProjectsPage()));
                       },
                     ),
                     ListTile(
@@ -82,27 +83,20 @@ class AboutPage extends StatelessWidget {
                       ),
                       onTap: () {
                         Navigator.pop(context);
-
                         Navigator.push(
                             context,
-                            MaterialPageRoute(
-                                builder: (context) => const ContactPage()));
+                            PageTransition(
+                                type: PageTransitionType.rightToLeft,
+                                duration: const Duration(milliseconds: 150),
+                                child: const ContactPage()));
                       },
                     ),
-                    ListTile(
-                      title: const Text(
+                    const ListTile(
+                      title: Text(
                         'About Us',
                         style: TextStyle(color: Colors.white),
                       ),
                       tileColor: Color.fromARGB(255, 25, 28, 36),
-                      onTap: () {
-                        Navigator.pop(context);
-
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const AboutPage()));
-                      },
                     ),
                   ],
                 ),
