@@ -11,7 +11,7 @@ void main() {
       child: MyApp(),
     ),
   );
-}
+} // void main()
 
 class MyApp extends StatelessWidget {
   @override
